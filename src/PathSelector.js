@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './path-selector.css';
-import FolderTree from './FolderTree';
+import FolderTreeNode from './FolderTreeNode';
 import Ajax from './Ajax';
 const HIVES=['HKCR','HKCU','HKLM','HKU','HKCC'];
 class PathSelector extends Component{
@@ -14,8 +14,10 @@ class PathSelector extends Component{
 	}
 	render() {		
 		return (
-			<FolderTree ref={this.folderTree} getChildFolders={this.getChildFolders}>
-			</FolderTree>
+			<div className="path-selector">
+				<FolderTreeNode ref={this.folderTree} path="" folder="Computer" getChildFolders={this.getChildFolders}>
+				</FolderTreeNode>
+			</div>
 		);
 	}
 	getChildFolders(path){

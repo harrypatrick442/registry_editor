@@ -8,6 +8,7 @@ module.exports = new(function(){
 				return;
 			}
 			regedit.list(path, (err, result)=>{
+				console.log(result);
 				resolve(result[path].keys);
 			});
 		});

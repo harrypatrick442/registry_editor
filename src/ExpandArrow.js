@@ -4,17 +4,17 @@ import arrowSE from './arrow-s-e.png';
 import arrowE from './arrow-e.png';
 class ExpandArrow extends Component{
 	constructor(props){
+		console.log('ExcpandArrow');
 		super(props);
-		console.log(props);
 		this.state={expanded:false};
 		this.toggleExpanded = this.toggleExpanded.bind(this);
 		this.onExpandedChanged = props.onExpandedChanged;
 		
 	}
 	toggleExpanded(){
-		this.setState({expanded:!this.state.expanded});
-		console.log(this);
-		this.onExpandedChanged({expanded:this.state.expanded});
+		const newExpanded=!this.state.expanded;
+		this.setState({expanded:newExpanded});
+		this.onExpandedChanged({expanded:newExpanded});
 	}
 	render(){
 		return (
