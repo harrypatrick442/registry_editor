@@ -1,0 +1,4 @@
+Please run:  "npm run dev"
+I have also included a short video of it running
+I appreciate there are stll things that can be improved such as deploying it.
+Hope this is ok :)
