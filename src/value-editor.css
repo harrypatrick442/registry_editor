@@ -11,12 +11,13 @@
 .value-editor .window{
 	margin:0 auto;
 	width:300px;
-	height:200px;
 	border-radius:4px;
 	background-color:rgba(60,60,60,0.9);
 	top:50%;
 	position:relative;
 	transform:translateY(-50%);
+	text-align:middle;
+	padding-bottom:10px;
 	
 }
 .value-editor .window .close-button{
@@ -31,7 +32,7 @@
 	width:100%;
 	padding:10px;
 	box-sizing:border-box;
-	height:45px;
+	min-height:45px;
 }
 .value-editor .window .field .key{
 	display:block;
@@ -80,11 +81,11 @@
 }
 .value-editor .window .field textarea.value{
 	margin:0;
+	margin-top:5px;
 	padding:0;
 	border:0px;
 	box-sizing:border-box;
 	font-size:16px;
-	outline:0;
 	vertical-align:top;
 	border-radius:3px;
 	background-color:transparent;
@@ -94,6 +95,37 @@
 	height:65px;
 	resize: none;
 }
+.value-editor .window .field textarea.value.visible{
+	display:inline-block;
+}
 .value-editor .window .field .value.editable:focus{
 	border:1px solid #ddddbb;
+}
+.value-editor .window .save{
+	display:block;
+	background-color:transparent;
+	border:2px solid #000300;
+	border-radius:3px;
+	height:25px;
+	font-size:14px;
+	left:50%;
+	transform:translateX(-50%);
+	position:relative;
+	cursor:pointer;
+}
+.value-editor .window .save:hover{
+	border-color:#466eb7;
+	color:#466eb7;
+}
+.value-editor .window .save:disabled{
+	border-color:#555555;
+	color:#555555;
+}
+.value-editor .window .save.saved{
+	border-color:#000000;
+	coloR:#0f5a0f;
+}
+.value-editor .window .save.saved:disabled{
+	border-color:#556655;
+	color:#555555;
 }

@@ -16,10 +16,19 @@ function createHandlers(){
 		switch(obj.type){
 			case 'getChildFolders':
 				RegistryHelper.getChildFolders(obj.path).then((childFolders)=>{
-					console.log(childFolders);
 					res.send(JSON.stringify(childFolders));
 				}).catch(console.error);
 				break;
+			case 'saveValue':
+			console.log(obj);
+				RegistryHelper.setValue(obj.path, obj.name, obj.valueType, obj.value).then(()=>{
+					res.send({successful:true});
+				}).catch((err)=>{
+					res.send({successful:false});
+					console.error(err);
+				});
+				break;
+			
 		}
 	});
 	app.listen(port, () => console.log(`registry_editor/backend listening on port ${port}`));

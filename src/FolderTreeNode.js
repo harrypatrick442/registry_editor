@@ -41,8 +41,8 @@ class FolderTreeNode extends Component{
 		if(childFolders&&childFolders.values){
 			for(var name in childFolders.values){
 				const obj = childFolders.values[name];
-				const path = (this.path?this.path+'\\':'')+name;
-				const valueNode = (<ValueNode path={path} key={path} name={name} type={obj.type} value={obj.value} editValue={this.editValue}></ValueNode>);
+				const path = this.path;	
+				const valueNode = (<ValueNode path={path} key={path+'\\'+name} name={name} type={obj.type} value={obj.value} editValue={this.editValue}></ValueNode>);
 				children.push(valueNode);
 			}
 		}

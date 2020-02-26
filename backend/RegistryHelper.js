@@ -17,7 +17,19 @@ module.exports = new(function(){
 			});
 		});
 	};
-	this.getHives = function(){
-		return HIVES;
+	this.setValue = function(path, name, type, value){		
+		return new Promise((resolve, reject)=>{console.log(arguments);
+			regedit.putValue({
+				[path]: {
+					[name]: {
+						value: value,
+						type: type
+					}
+				}
+			}, function(err) {
+				if(err)reject(err);
+				else resolve();
+			});
+		});
 	};
 })();

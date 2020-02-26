@@ -8,13 +8,15 @@ import RegistryValueHelper from './RegistryValueHelper';
 class ValueEditor extends Component{
 	constructor(props){
 		super(props);
-		this.state ={visible:false, name:'', type:null, value:'', valid:true};
+		this.state ={visible:false, name:'', valueType:null, value:'', parsedValue:null, valid:true, savedValue:null};
+		this.saveValue = props.saveValue.bind(this);
 		this.editValue = this.editValue.bind(this);
 		this.valueChanged = this.valueChanged.bind(this);
 		this.onMouseEnter = this.onMouseEnter.bind(this);
 		this.onMouseLeave = this.onMouseLeave.bind(this);
 		this.parseAndCheckValueValid = this.parseAndCheckValueValid.bind(this);
 		this.close = this.close.bind(this);
+		this.save = this.save.bind(this);
 	}
 	onMouseEnter(){
 		this.setState({hovering:true});
@@ -23,29 +25,50 @@ class ValueEditor extends Component{
 		this.setState({hovering:false});
 	}
 	valueChanged(e){
-		console.log(e);
 		const value = e.target.value;
-		const valid = this.parseAndCheckValueValid(value);
-		console.log(valid);
-		this.setState({value: value, valid:valid});
+		const parsedValue = this.parseAndCheckValueValid(value);
+		const passed = parsedValue !== null;
+		this.setState({value:value , parsedValue:parsedValue, valid:passed});
 	}
 	parseAndCheckValueValid(value){
-		const parsed = RegistryValueHelper.parseAndCheck(this.state.type, value);
-		return parsed !== null;
+		return RegistryValueHelper.parseAndCheck(this.state.valueType, value);
 	}
 	editValue(params){
-		console.log(params);
-		this.setState({visible:true, name:params.name, type:params.type, value:params.value, valid:true});
+		let value=params.value;
+		const type = params.type;
+		switch(type){
+			case RegistryTypes.REG_BINARY:
+			value=value.join(',');
+			break;
+			case RegistryTypes.REG_MULTI_SZ:
+			value=value.join('\n');
+			break;
+		}
+		this.setState({visible:true, name:params.name, valueType:type, parsedValue:null,
+			value:value, valid:true, path:params.path, updateValue:params.updateValue, savedState:null, initialValue:value});
 	}
 	close(){
 		this.setState({visible:false});
 	}
+	save(){
+		const state = this.state;
+		this.saveValue({name:state.name, value:state.parsedValue, valueType:state.valueType, path:state.path}).then((res)=>{
+			if(res.successful){
+				this.state.updateValue(state.value);
+				this.setState({savedValue:state.value});
+			}
+			else alert('Something went wrong');
+		}).catch(console.error);
+	}
 	render(){
 		const classNames = "value-editor"+(this.state.visible?" visible":"");
 		const closeButtonIcon = this.state.hovering?closeHoverIcon:closeIcon;
-		const classNamesValue="value"+(this.state.valid?"":" invalid");
-		const classNamesValueSingleLine = classNamesValue+(this.state.type!==RegistryTypes.REG_MULTI_SZ?" visible":"");
-		const classNamesValueMultiLine= classNamesValue+(this.state.type===RegistryTypes.REG_MULTI_SZ?" visible":"");
+		const classNamesValue="value editable"+(this.state.valid?"":" invalid");
+		const classNamesValueSingleLine = classNamesValue+(this.state.valueType!==RegistryTypes.REG_MULTI_SZ?" visible":"");
+		const isRegMultiSz=this.state.valueType===RegistryTypes.REG_MULTI_SZ;
+		const classNamesValueMultiLine= classNamesValue+(isRegMultiSz?" visible":"");
+		const classNamesSave = "save"+(this.state.savedValue===this.state.value?" saved":"");
+		const saveDissabled = !this.state.valid||this.state.initialValue===this.state.value||this.state.savedValue===this.state.value;
 		return (
 			<div className={classNames}>
 				<div className="window">
@@ -56,7 +79,7 @@ class ValueEditor extends Component{
 					</div>
 					<div className="field">
 						<div className="key">Type</div>
-						<div className="value visible">{this.state.type}</div>
+						<div className="value visible">{this.state.valueType}</div>
 					</div>
 					<div className="field">
 						<div className="key">Value</div>
@@ -64,7 +87,8 @@ class ValueEditor extends Component{
 							<input type="text" value={this.state.value} onChange={this.valueChanged}></input>
 						</div>
 						<textarea value={this.state.value} className={classNamesValueMultiLine} onChange={this.valueChanged}></textarea>
-					</div>				
+					</div>
+					<button className={classNamesSave} onClick={this.save} disabled={saveDissabled}>Save</button>					
 				</div>
 			</div>
 		);

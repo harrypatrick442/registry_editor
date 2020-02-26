@@ -8,12 +8,10 @@ import './folder-tree-node.css';
 class ValueNode extends Component{ 
 	constructor(props){
 		super(props);
-		this.name = props.name;
-		this.type = props.type;
 		this.editValue = props.editValue.bind(this);
 		this.onClick = this.onClick.bind(this);
 		this.updateValue = this.updateValue.bind(this);
-		this.state={value:props.value};
+		this.state={value:props.value, name:props.name, type:props.type, path:props.path};
 	}
 	shouldComponentUpdate(nextProps, nextState){
 	   return this.state.value!==nextState.value;
@@ -23,7 +21,7 @@ class ValueNode extends Component{
 	}
 	onClick(e){
 		e.stopPropagation();
-		this.editValue({name:this.name, type:this.type, value:this.state.value, updateValue:this.updateValue});
+		this.editValue({name:this.state.name, type:this.state.type, value:this.state.value, updateValue:this.updateValue, path:this.state.path});
 	}
 	onDoubleClick(e){
 		e.stopPropagation();
@@ -38,9 +36,9 @@ class ValueNode extends Component{
 					RegistryTypes.REG_LINK,
 					RegistryTypes.REG_MULTI_SZ,
 					RegistryTypes.REG_SZ
-				].indexOf(this.type)>=0?readableTextIcon:binaryIcon}/>
+				].indexOf(this.state.type)>=0?readableTextIcon:binaryIcon}/>
 				<div className="title">
-					{this.name}
+					{this.state.name}
 				</div>
 			</div>
 			</div>

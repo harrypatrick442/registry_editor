@@ -12,7 +12,7 @@ const RegistryValueHelper = new(function(){
 					if(isNaN(n)||n>255||n<0)return null;
 					ns.push(n);
 				}
-				return ns.join(',');
+				return ns;
 			case RegistryTypes.REG_DWORD:
 			case RegistryTypes.REG_DWORD_LITTLE_ENDIAN:
 			case RegistryTypes.REG_DWORD_BIG_ENDIAN:
@@ -25,9 +25,10 @@ const RegistryValueHelper = new(function(){
 			case RegistryTypes.REG_LINK:
 			case RegistryTypes.REG_SZ:
 			case RegistryTypes.REG_EXPAND_SZ:
-			case RegistryTypes.REG_MULTI_SZ:
 			case RegistryTypes.REG_NONE:
-				return true;
+				return value;
+			case RegistryTypes.REG_MULTI_SZ:
+				return value.split('\n');
 			case RegistryTypes.REG_QWOWD:
 			case RegistryTypes.REG_QWORD_LITTLE_ENDIAN:
 			{

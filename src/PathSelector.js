@@ -2,15 +2,13 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './path-selector.css';
 import FolderTreeNode from './FolderTreeNode';
-import Ajax from './Ajax';
 const HIVES=['HKCR','HKCU','HKLM','HKU','HKCC'];
 class PathSelector extends Component{
 	constructor(props) {
 		super(props);
 		this.showSpinner = props.showSpinner;
 		this.folderTree = React.createRef();
-		this.ajax = new Ajax({url:window.location.protocol + "//" + window.location.hostname+':1433/handler'});
-		this.getChildFolders = this.getChildFolders.bind(this);
+		this.getChildFolders = props.getChildFolders.bind(this);
 		this.editValue = props.editValue;
 	}
 	render() {		
@@ -21,16 +19,6 @@ class PathSelector extends Component{
 				</FolderTreeNode>
 			</div>
 		);
-	}
-	getChildFolders(path){
-		return new Promise((resolve, reject)=>{
-			this.ajax.post({
-				data:JSON.stringify({type:'getChildFolders', path:path})
-			}).then((res)=>{
-				res = JSON.parse(res);
-				resolve(res);
-			}).catch(reject);
-		});
 	}
 }
 
