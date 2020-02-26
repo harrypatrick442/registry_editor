@@ -15,8 +15,7 @@ class Spinner extends Component {
 		console.log('showing');
 		const clear =(()=>{
 			let done = false;
-			return ()=>{
-				console.log('clearing');
+				return ()=>{
 				if(done)return;
 				done=true;
 				this.countDownHandles();

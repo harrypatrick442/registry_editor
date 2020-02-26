@@ -10,7 +10,7 @@
 }
 .value-editor .window{
 	margin:0 auto;
-	width:200px;
+	width:300px;
 	height:200px;
 	border-radius:4px;
 	background-color:rgba(60,60,60,0.9);
@@ -26,4 +26,55 @@
 	top:5px;
 	right:5px;
 	cursor:pointer;
+}
+.value-editor .window .field{
+	width:100%;
+	padding:10px;
+	box-sizing:border-box;
+	height:45px;
+}
+.value-editor .window .field .key{
+	display:block;
+	font-size:16px;
+	font-weight:bold;	
+	white-space: nowrap;
+	overflow: hidden;
+	box-sizing:border-box;
+	height:100%;
+	margin-right:10px;
+	float:left;
+	min-width:46px;
+}
+.value-editor .window .field .value{
+	display:block;
+	font-size:14px;
+	color:#000800;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	box-sizing:border-box;
+	height:100%;
+}
+.value-editor .window .field .value.top{
+	padding-right:20px;
+}
+.value-editor .window .field .value.invalid input[type="text"]{
+	border-color:red;
+}
+.value-editor .window .field .value input[type="text"]{
+	margin:0;
+	padding:0;
+	border:0px;
+	box-sizing:border-box;
+	font-size:16px;
+	outline:0;
+	vertical-align:top;
+	border-radius:3px;
+	background-color:transparent;
+	border:1px solid #999999;
+	padding:2px;
+	width:100%;
+}
+.value-editor .window .field .value.editable:focus{
+	border:1px solid #ddddbb;
 }
