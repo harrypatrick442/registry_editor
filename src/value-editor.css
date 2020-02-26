@@ -1,0 +1,29 @@
+.value-editor{
+	position:fixed;
+	width:100%;
+	height:100%;
+	background-color:rgba(100,100,100,0.6);
+	top:0px;
+	display:none;
+}.value-editor.visible{
+	display:block;
+}
+.value-editor .window{
+	margin:0 auto;
+	width:200px;
+	height:200px;
+	border-radius:4px;
+	background-color:rgba(60,60,60,0.9);
+	top:50%;
+	position:relative;
+	transform:translateY(-50%);
+	
+}
+.value-editor .window .close-button{
+	width:20px;
+	height:20px;
+	position:absolute;
+	top:5px;
+	right:5px;
+	cursor:pointer;
+}

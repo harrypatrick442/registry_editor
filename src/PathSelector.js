@@ -7,6 +7,7 @@ const HIVES=['HKCR','HKCU','HKLM','HKU','HKCC'];
 class PathSelector extends Component{
 	constructor(props) {
 		super(props);
+		this.showSpinner = props.showSpinner;
 		this.folderTree = React.createRef();
 		this.ajax = new Ajax({url:window.location.protocol + "//" + window.location.hostname+':1433/handler'});
 		this.getChildFolders = this.getChildFolders.bind(this);
@@ -15,7 +16,8 @@ class PathSelector extends Component{
 	render() {		
 		return (
 			<div className="path-selector">
-				<FolderTreeNode ref={this.folderTree} path="" folder="Computer" getChildFolders={this.getChildFolders} editValue={this.editValue}>
+				<FolderTreeNode ref={this.folderTree} showSpinner={this.showSpinner}
+					path="" folder="Computer" getChildFolders={this.getChildFolders} editValue={this.editValue}>
 				</FolderTreeNode>
 			</div>
 		);

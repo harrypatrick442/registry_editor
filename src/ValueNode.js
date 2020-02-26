@@ -11,15 +11,27 @@ class ValueNode extends Component{
 		this.name = props.name;
 		this.type = props.type;
 		this.editValue = props.editValue.bind(this);
+		this.onClick = this.onClick.bind(this);
+		this.updateValue = this.updateValue.bind(this);
 		this.state={value:props.value};
 	}
 	shouldComponentUpdate(nextProps, nextState){
 	   return this.state.value!==nextState.value;
 	}
+	updateValue(){
+		
+	}
+	onClick(e){
+		e.stopPropagation();
+		this.editValue({name:this.name, type:this.type, value:this.state.value, updateValue:this.updateValue});
+	}
+	onDoubleClick(e){
+		e.stopPropagation();
+	}
 	render(){
 		const classNames = "children-wrapper"+(	this.state.expanded?" visible":"");
 		return (
-			<div className="value-node">
+			<div className="value-node" onClick={this.onClick} onDoubleClick={this.onDoubleClick}>
 			<div className="row">
 				<img className="value-icon icon" src={[
 					RegistryTypes.REG_EXPAND_SZ,

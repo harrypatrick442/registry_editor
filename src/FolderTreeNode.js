@@ -11,6 +11,7 @@ class FolderTreeNode extends Component{
 		this.folder = props.folder;
 		this.path = props.path;
 		this.getChildFolders = props.getChildFolders.bind(this);
+		this.showSpinner = props.showSpinner;
 		this.editValue = props.editValue;
 		this.childrenWrapper = React.createRef();
 		this.expandArrow = React.createRef();
@@ -22,8 +23,9 @@ class FolderTreeNode extends Component{
 	onExpandedChanged(e){
 		this.setState({expanded:e.expanded});
 		if(this.state.loadedChildren)return;
+		const clearSpinner = this.showSpinner();
 		this.getChildFolders(this.path).then((childFolders)=>{
-			this.gotChildFolders(childFolders);
+			this.gotChildFolders(childFolders, clearSpinner);
 		}).catch(console.error);
 		
 	}
@@ -34,7 +36,7 @@ class FolderTreeNode extends Component{
 	shouldComponentUpdate(nextProps, nextState){
 	   return (nextState.loadedChildren!==this.state.loadedChildren)||(this.state.expanded!==nextState.expanded);
 	}
-	gotChildFolders(childFolders){
+	gotChildFolders(childFolders, clearSpinner){
 		const children = this.state.children;
 		if(childFolders&&childFolders.values){
 			for(var name in childFolders.values){
@@ -46,9 +48,10 @@ class FolderTreeNode extends Component{
 		}
 		childFolders&&childFolders.keys&&childFolders.keys.forEach((childFolder)=>{
 			const path = (this.path?this.path+'\\':'')+childFolder;
-			const childFolderTreeNode = (<FolderTreeNode path={path} key={path} folder={childFolder} getChildFolders={this.getChildFolders} editValue={this.editValue}></FolderTreeNode>);
+			const childFolderTreeNode = (<FolderTreeNode  showSpinner={this.showSpinner} path={path} key={path} folder={childFolder} getChildFolders={this.getChildFolders} editValue={this.editValue}></FolderTreeNode>);
 			children.push(childFolderTreeNode);
 		});
+		clearSpinner();
 		this.setState({children:children, loadedChildren:true});
 	}
 	render(){

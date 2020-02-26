@@ -1,0 +1,17 @@
+.spinner{
+	position:fixed;
+	width:100%;
+	height:100%;
+	background-color:rgba(100,100,100,0.6);
+	top:0px;
+    text-align: center;
+	display:none;
+}.spinner.visible{
+	display:block;
+}
+.spinner .sweet-loading{
+	margin:0 auto;
+	top:50%;
+	position:relative;
+	transform:translateY(-50%);
+}
