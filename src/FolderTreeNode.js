@@ -18,16 +18,20 @@ class FolderTreeNode extends Component{
 		this.onExpandedChanged = this.onExpandedChanged.bind(this);
 		this.onDoubleClick = this.onDoubleClick.bind(this);
 		this.gotChildFolders = this.gotChildFolders.bind(this);
+		this.setExpanded = this.setExpanded.bind(this);
 		this.state={children:[], expanded:false};
 	}
 	onExpandedChanged(e){
 		this.setState({expanded:e.expanded});
 		if(this.state.loadedChildren)return;
+		if(!e.expanded)return;
 		const clearSpinner = this.showSpinner();
 		this.getChildFolders(this.path).then((childFolders)=>{
 			this.gotChildFolders(childFolders, clearSpinner);
 		}).catch(console.error);
-		
+	}
+	setExpanded(value){
+		this.expandArrow.current.setExpanded(value);
 	}
 	onDoubleClick(e){
 		e.stopPropagation();

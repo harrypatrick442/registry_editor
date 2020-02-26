@@ -13,7 +13,6 @@ const Ajax = function(params){
 			const parameters = params['parameters'],
 				contentType = params['contentType']?params['contentType']:DEFAULT_CONTENT_TYPE,
 				timeout = params['timeout'], data=params['data'];
-			console.log(params);
 			let url = addUrlParameters(params.url?params.url:classUrl, parameters);
 			var xhr = new XMLHttpRequest();
 			if(timeout)

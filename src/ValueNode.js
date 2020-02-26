@@ -16,8 +16,8 @@ class ValueNode extends Component{
 	shouldComponentUpdate(nextProps, nextState){
 	   return this.state.value!==nextState.value;
 	}
-	updateValue(){
-		
+	updateValue(value){
+		this.setState({value:value});
 	}
 	onClick(e){
 		e.stopPropagation();

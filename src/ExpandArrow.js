@@ -12,12 +12,15 @@ class ExpandArrow extends Component{
 		this.onExpandedChanged = props.onExpandedChanged;
 		this.onMouseEnter = this.onMouseEnter.bind(this);
 		this.onMouseLeave = this.onMouseLeave.bind(this);
-		
+		this.setExpanded= this.setExpanded.bind(this);
+	}
+	setExpanded(value){
+		this.setState({expanded:value});
+		this.onExpandedChanged({expanded:value})
 	}
 	toggleExpanded(){
 		const newExpanded=!this.state.expanded;
-		this.setState({expanded:newExpanded});
-		this.onExpandedChanged({expanded:newExpanded});
+		this.setExpanded(newExpanded);
 	}
 	onMouseLeave(){
 		this.setState({hovering:false});

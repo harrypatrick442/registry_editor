@@ -10,6 +10,9 @@ class PathSelector extends Component{
 		this.folderTree = React.createRef();
 		this.getChildFolders = props.getChildFolders.bind(this);
 		this.editValue = props.editValue;
+		setTimeout(()=>{
+			this.folderTree.current.setExpanded(true);
+		},0);
 	}
 	render() {		
 		return (

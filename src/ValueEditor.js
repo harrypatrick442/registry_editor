@@ -5,6 +5,7 @@ import closeHoverIcon from './close-hover-icon.png';
 import closeIcon from './close-icon.png';
 import RegistryTypes from './RegistryTypes';
 import RegistryValueHelper from './RegistryValueHelper';
+import ReactTooltip from 'react-tooltip';
 class ValueEditor extends Component{
 	constructor(props){
 		super(props);
@@ -54,7 +55,7 @@ class ValueEditor extends Component{
 		const state = this.state;
 		this.saveValue({name:state.name, value:state.parsedValue, valueType:state.valueType, path:state.path}).then((res)=>{
 			if(res.successful){
-				this.state.updateValue(state.value);
+				this.state.updateValue(state.parsedValue);
 				this.setState({savedValue:state.value});
 			}
 			else alert('Something went wrong');
@@ -71,11 +72,12 @@ class ValueEditor extends Component{
 		const saveDissabled = !this.state.valid||this.state.initialValue===this.state.value||this.state.savedValue===this.state.value;
 		return (
 			<div className={classNames}>
+				<ReactTooltip />
 				<div className="window">
 				 <img src={closeButtonIcon} onClick={this.close} className="close-button" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}></img>
 					<div className="field">
-						<div className="key">Name</div>
-						<div className="value top visible">{this.state.name}</div>
+						<div className="key" data-tip={this.state.name}>Name</div>
+						<div className="value top visible" data-tip={this.state.name}>{this.state.name}</div>
 					</div>
 					<div className="field">
 						<div className="key">Type</div>

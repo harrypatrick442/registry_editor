@@ -12,7 +12,6 @@ class Spinner extends Component {
 		this.handlesCount=0;
 	}
 	show(){
-		console.log('showing');
 		const clear =(()=>{
 			let done = false;
 				return ()=>{
@@ -36,7 +35,6 @@ class Spinner extends Component {
 				<div className="sweet-loading">
 					<ClipLoader
 						size={150}
-						//size={"150px"} this also works
 						color={"#123abc"}
 						loading={true}
 					/>
