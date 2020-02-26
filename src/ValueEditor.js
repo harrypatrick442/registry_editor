@@ -34,6 +34,7 @@ class ValueEditor extends Component{
 		return parsed !== null;
 	}
 	editValue(params){
+		console.log(params);
 		this.setState({visible:true, name:params.name, type:params.type, value:params.value, valid:true});
 	}
 	close(){
@@ -42,24 +43,27 @@ class ValueEditor extends Component{
 	render(){
 		const classNames = "value-editor"+(this.state.visible?" visible":"");
 		const closeButtonIcon = this.state.hovering?closeHoverIcon:closeIcon;
-		const classNamesValue = "value"+(this.state.valid?"":" invalid");
+		const classNamesValue="value"+(this.state.valid?"":" invalid");
+		const classNamesValueSingleLine = classNamesValue+(this.state.type!==RegistryTypes.REG_MULTI_SZ?" visible":"");
+		const classNamesValueMultiLine= classNamesValue+(this.state.type===RegistryTypes.REG_MULTI_SZ?" visible":"");
 		return (
 			<div className={classNames}>
 				<div className="window">
 				 <img src={closeButtonIcon} onClick={this.close} className="close-button" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}></img>
 					<div className="field">
 						<div className="key">Name</div>
-						<div className="value top">{this.state.name}</div>
+						<div className="value top visible">{this.state.name}</div>
 					</div>
 					<div className="field">
 						<div className="key">Type</div>
-						<div className="value">{this.state.type}</div>
+						<div className="value visible">{this.state.type}</div>
 					</div>
 					<div className="field">
 						<div className="key">Value</div>
-						<div className={classNamesValue} >
+						<div className={classNamesValueSingleLine} >
 							<input type="text" value={this.state.value} onChange={this.valueChanged}></input>
 						</div>
+						<textarea value={this.state.value} className={classNamesValueMultiLine} onChange={this.valueChanged}></textarea>
 					</div>				
 				</div>
 			</div>
