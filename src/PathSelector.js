@@ -8,14 +8,14 @@ class PathSelector extends Component{
 	constructor(props) {
 		super(props);
 		this.folderTree = React.createRef();
-		console.log(window.location);
 		this.ajax = new Ajax({url:window.location.protocol + "//" + window.location.hostname+':1433/handler'});
 		this.getChildFolders = this.getChildFolders.bind(this);
+		this.editValue = props.editValue;
 	}
 	render() {		
 		return (
 			<div className="path-selector">
-				<FolderTreeNode ref={this.folderTree} path="" folder="Computer" getChildFolders={this.getChildFolders}>
+				<FolderTreeNode ref={this.folderTree} path="" folder="Computer" getChildFolders={this.getChildFolders} editValue={this.editValue}>
 				</FolderTreeNode>
 			</div>
 		);

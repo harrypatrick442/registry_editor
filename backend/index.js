@@ -16,6 +16,7 @@ function createHandlers(){
 		switch(obj.type){
 			case 'getChildFolders':
 				RegistryHelper.getChildFolders(obj.path).then((childFolders)=>{
+					console.log(childFolders);
 					res.send(JSON.stringify(childFolders));
 				}).catch(console.error);
 				break;

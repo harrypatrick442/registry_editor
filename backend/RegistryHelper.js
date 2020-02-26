@@ -4,12 +4,16 @@ module.exports = new(function(){
 	this.getChildFolders = function(path){
 		return new Promise((resolve, reject)=>{
 			if(!path){
-				resolve(HIVES);
+				resolve({keys:HIVES});
 				return;
 			}
 			regedit.list(path, (err, result)=>{
 				console.log(result);
-				resolve(result[path].keys);
+				if(!result){
+					resolve(null);
+					return;
+				}
+				resolve(result[path]);
 			});
 		});
 	};

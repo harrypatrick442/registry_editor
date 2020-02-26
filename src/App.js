@@ -7,14 +7,15 @@ import SplitPane, { Pane } from 'react-split-pane';
 function App() {
   return (
     <div className="App">
-		<SplitPane split="vertical" minSize={50} defaultSize={100}>
-			<PathSelector>
+			<PathSelector editValue={editValue}>
 			</PathSelector>
 			<ValueViewer>
 			</ValueViewer>
-		</SplitPane>
     </div>
   );
+  function editValue(obj){
+	  
+  }
 }
 
 export default App;
